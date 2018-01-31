@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     TextView mTimeText;
 
+    CountDown countDown;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         long countNumber = 10000;
         long interval = 10;
-        final CountDown countDown = new CountDown(countNumber, interval, this);
+        countDown = new CountDown(countNumber, interval, this);
         countDown.start();
     }
 
@@ -106,6 +108,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mSensorManager.unregisterListener(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try{
+            countDown.cancel();
+        }catch (NullPointerException e){
+            Log.d("Ecatch", "nullpo");
+        }
+    }
+
     class CountDown extends CountDownTimer {
 
         MainActivity mainActivity;
@@ -119,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         public void onFinish() {
             // 完了
             // 画面繊維
+            finish();
             Intent intent = new Intent(mainActivity, ResultActivity.class);
             intent.putExtra("score", score);
             startActivity(intent);
