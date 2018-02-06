@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mScoreText = (TextView) findViewById(R.id.scoreText);
         mTimeText = (TextView) findViewById(R.id.timeText);
 
-        long countNumber = 10000;
+        long countNumber = 1000;
         long interval = 10;
         countDown = new CountDown(countNumber, interval, this);
         countDown.start();
