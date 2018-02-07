@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -15,9 +16,19 @@ import com.google.firebase.database.Query;
 
 import java.util.UUID;
 
-public class ResultActivity extends AppCompatActivity {
+public class ResultActivity extends AppCompatActivity implements View.OnClickListener{
 
     TextView mScoreText;
+
+    int score;
+    String place;
+    boolean first = true;
+
+    TextView textOne;
+    TextView textTwo;
+    TextView textThree;
+
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +37,14 @@ public class ResultActivity extends AppCompatActivity {
 
         mScoreText = (TextView) findViewById(R.id.ScoreResult);
 
+        textOne = (TextView) findViewById(R.id.rankOne);
+        textTwo = (TextView) findViewById(R.id.rankTwo);
+        textThree = (TextView) findViewById(R.id.rankThree);
+
         Intent intent = getIntent();
         int score = intent.getIntExtra("score", 0);
 
         mScoreText.setText("Score : " + score);
-
-        sendMessage("place", score);
     }
 
 
@@ -40,7 +53,7 @@ public class ResultActivity extends AppCompatActivity {
 //        return database.getReference(MESSAGE_STORE); // MESSAGE_STORE = "message"
 //    }
 
-    private void sendMessage(String place, int score) {
+    private void sendMessage() {
         final Data data = new Data(place, score);
         String token = UUID.randomUUID().toString();
 
@@ -49,13 +62,26 @@ public class ResultActivity extends AppCompatActivity {
         myRef.child(token).setValue(data);
 
         Query query = myRef.orderByChild("sort_score");
-        query.limitToFirst(10).addChildEventListener(
+        query.limitToFirst(3).addChildEventListener(
                 new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Log.d("aaa", "aaaaa");
-                        int nScore = dataSnapshot.child("score").getValue(Integer.class);
-                        String nPlace = dataSnapshot.child("place").getValue(String.class);
+                        int nScore = 0;
+                        String nPlace = "";
+                        if(count != 0){
+                            nScore = dataSnapshot.child("score").getValue(Integer.class);
+                            nPlace = dataSnapshot.child("place").getValue(String.class);
+                        }
+                        if(count == 1){
+                            textOne.setText("score : " + nScore + ", place : " + nPlace);
+                        }else if(count == 2){
+                            textTwo.setText("score : " + nScore + ", place : " + nPlace);
+                        }else if(count == 3){
+                            textThree.setText("score : " + nScore + ", place : " + nPlace);
+                            count = -1;
+                        }
+                        count++;
                     }
 
                     @Override
@@ -82,4 +108,11 @@ public class ResultActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if(first){
+            first = false;
+            sendMessage();
+        }
+    }
 }
