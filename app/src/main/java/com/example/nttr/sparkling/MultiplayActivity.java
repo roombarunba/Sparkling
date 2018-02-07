@@ -43,7 +43,6 @@ public class MultiplayActivity extends AppCompatActivity implements SensorEventL
 
     CountDown countDown;
 
-
     private LocationManager locationManager;
 
     private static final int MinTime = 1000;
@@ -67,7 +66,7 @@ public class MultiplayActivity extends AppCompatActivity implements SensorEventL
         // LocationManager インスタンス生成
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-        long countNumber = 100000;
+        long countNumber = 10000;
         long interval = 10;
         countDown = new CountDown(countNumber, interval, this);
         countDown.start();
@@ -155,7 +154,18 @@ public class MultiplayActivity extends AppCompatActivity implements SensorEventL
         super.onDestroy();
         try{
             countDown.cancel();
+        }catch (NullPointerException e){
+            Log.d("Ecatch", "nullpo");
+        }
+
+        try{
             stopGPS();
+        }catch (NullPointerException e){
+            Log.d("Ecatch", "nullpo");
+        }
+
+        try{
+            mSensorManager.unregisterListener(this);
         }catch (NullPointerException e){
             Log.d("Ecatch", "nullpo");
         }
@@ -167,6 +177,7 @@ public class MultiplayActivity extends AppCompatActivity implements SensorEventL
                 = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (!gpsEnabled) {
             // GPSを設定するように促す
+            Log.d("kokoni","konaihazu");
             enableLocationSettings();
         }
 
