@@ -21,7 +21,8 @@ public class MultiresultActivity extends AppCompatActivity implements View.OnCli
     TextView mScoreText;
 
     int score;
-    String place;
+    double ido;
+    double keido;
     boolean first = true;
 
     TextView textOne;
@@ -43,7 +44,8 @@ public class MultiresultActivity extends AppCompatActivity implements View.OnCli
 
         Intent intent = getIntent();
         score = intent.getIntExtra("score", 0);
-        place = intent.getStringExtra("place");
+        ido = intent.getDoubleExtra("ido", 0);
+        keido = intent.getDoubleExtra("keido", 0);
 
         mScoreText.setText("Score : " + score);
     }
@@ -55,11 +57,11 @@ public class MultiresultActivity extends AppCompatActivity implements View.OnCli
 //    }
 
     private void sendMessage() {
-        final Data data = new Data(place, score);
+        final GPSData data = new GPSData(ido, keido, score);
         String token = UUID.randomUUID().toString();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("ranking");
+        DatabaseReference myRef = database.getReference("GPSranking");
         myRef.child(token).setValue(data);
 
         try {
@@ -69,24 +71,20 @@ public class MultiresultActivity extends AppCompatActivity implements View.OnCli
         }
 
         Query query = myRef.orderByChild("sort_score");
-        query.limitToFirst(2).addChildEventListener(
+        query.limitToFirst(1).addChildEventListener(
                 new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Log.d("aaa", "aaaaa");
                         int nScore = 0;
-                        String nPlace = "";
+                        double nIdo = 0;
+                        double nKeido = 0;
                         nScore = dataSnapshot.child("score").getValue(Integer.class);
-                        nPlace = dataSnapshot.child("place").getValue(String.class);
-                        if(count == 0){
-                            textOne.setText("score : " + nScore + ", place : " + nPlace);
-                        }else if(count == 1){
-                            textTwo.setText("score : " + nScore + ", place : " + nPlace);
-                        }else if(count == 2){
-                            textThree.setText("score : " + nScore + ", place : " + nPlace);
-                            count = -1;
-                        }
-                        count++;
+                        nIdo = dataSnapshot.child("ido").getValue(Double.class);
+                        nKeido = dataSnapshot.child("keido").getValue(Double.class);
+                        textOne.setText("score : " + nScore);
+                        textTwo.setText("緯度 : " + nIdo);
+                        textThree.setText("経度: " + nKeido);
                     }
 
                     @Override

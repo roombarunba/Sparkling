@@ -47,6 +47,9 @@ public class MultiplayActivity extends AppCompatActivity implements SensorEventL
 
     private LocationManager locationManager;
 
+    double ido = 0;
+    double keido = 0;
+
     private static final int MinTime = 1000;
     private static final float MinDistance = 1;
 
@@ -257,6 +260,9 @@ public class MultiplayActivity extends AppCompatActivity implements SensorEventL
         location_s += "Speed=" + String.valueOf(location.getSpeed()) + "\n";
         location_s += "Bearing=" + String.valueOf(location.getBearing()) + "\n";
         location_s += "----------\n";
+
+        ido = location.getLatitude();
+        keido = location.getLongitude();
     }
 
     @Override
@@ -300,7 +306,8 @@ public class MultiplayActivity extends AppCompatActivity implements SensorEventL
             finish();
             Intent intent = new Intent(multiplayActivity, MultiresultActivity.class);
             intent.putExtra("score", score);
-            intent.putExtra("place", place);
+            intent.putExtra("ido", ido);
+            intent.putExtra("keido", keido);
             startActivity(intent);
         }
 
