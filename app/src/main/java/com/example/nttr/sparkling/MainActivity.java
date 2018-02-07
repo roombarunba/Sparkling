@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     CountDown countDown;
 
+    String place = "place";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             finish();
             Intent intent = new Intent(mainActivity, ResultActivity.class);
             intent.putExtra("score", score);
+            intent.putExtra("place", place);
             startActivity(intent);
         }
 

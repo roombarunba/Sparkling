@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".ResultActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".MultiplayActivity"></activity>
+        <activity android:name=".MultiplayActivity" />
+        <activity android:name=".MultiresultActivity"></activity>
     </application>
 
 </manifest>

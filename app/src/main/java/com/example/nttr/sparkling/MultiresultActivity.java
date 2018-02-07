@@ -16,7 +16,7 @@ import com.google.firebase.database.Query;
 
 import java.util.UUID;
 
-public class ResultActivity extends AppCompatActivity implements View.OnClickListener{
+public class MultiresultActivity extends AppCompatActivity implements View.OnClickListener{
 
     TextView mScoreText;
 
@@ -33,13 +33,13 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
+        setContentView(R.layout.activity_multiresult);
 
-        mScoreText = (TextView) findViewById(R.id.ScoreResult);
+        mScoreText = (TextView) findViewById(R.id.MScoreResult);
 
-        textOne = (TextView) findViewById(R.id.rankOne);
-        textTwo = (TextView) findViewById(R.id.rankTwo);
-        textThree = (TextView) findViewById(R.id.rankThree);
+        textOne = (TextView) findViewById(R.id.MrankOne);
+        textTwo = (TextView) findViewById(R.id.MrankTwo);
+        textThree = (TextView) findViewById(R.id.MrankThree);
 
         Intent intent = getIntent();
         score = intent.getIntExtra("score", 0);
@@ -69,7 +69,7 @@ public class ResultActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         Query query = myRef.orderByChild("sort_score");
-        query.limitToFirst(3).addChildEventListener(
+        query.limitToFirst(2).addChildEventListener(
                 new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {

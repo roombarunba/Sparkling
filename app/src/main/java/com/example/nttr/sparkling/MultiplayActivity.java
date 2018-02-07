@@ -43,6 +43,8 @@ public class MultiplayActivity extends AppCompatActivity implements SensorEventL
 
     CountDown countDown;
 
+    String place = "place";
+
     private LocationManager locationManager;
 
     private static final int MinTime = 1000;
@@ -296,8 +298,9 @@ public class MultiplayActivity extends AppCompatActivity implements SensorEventL
             // 完了
             // 画面繊維
             finish();
-            Intent intent = new Intent(multiplayActivity, ResultActivity.class);
+            Intent intent = new Intent(multiplayActivity, MultiresultActivity.class);
             intent.putExtra("score", score);
+            intent.putExtra("place", place);
             startActivity(intent);
         }
 
