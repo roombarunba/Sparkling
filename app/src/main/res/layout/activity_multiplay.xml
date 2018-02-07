@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.nttr.sparkling.MainActivity"
-    tools:layout_editor_absoluteY="81dp">
+    tools:context="com.example.nttr.sparkling.MultiplayActivity">
 
     <LinearLayout
         android:id="@+id/MtimeLayout"
@@ -21,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/MtextView6"
             android:layout_width="182dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -29,7 +28,7 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/timeText"
+            android:id="@+id/MtimeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -64,7 +63,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/MtextView"
                 android:layout_width="121dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -73,7 +72,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/textX"
+                android:id="@+id/MtextX"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -91,7 +90,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/MtextView2"
                 android:layout_width="121dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -100,7 +99,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/textY"
+                android:id="@+id/MtextY"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -117,7 +116,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/MtextView3"
                 android:layout_width="121dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -126,7 +125,7 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/textZ"
+                android:id="@+id/MtextZ"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -153,7 +152,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/MtextView5"
             android:layout_width="182dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -161,7 +160,7 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/scoreText"
+            android:id="@+id/MscoreText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -174,4 +173,5 @@
             app:layout_constraintTop_toBottomOf="@+id/MlinearLayout2"
             app:layout_constraintVertical_bias="0.492" />
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
