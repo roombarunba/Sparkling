@@ -2,6 +2,7 @@ package com.example.nttr.sparkling;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -48,6 +49,9 @@ public class MultiresultActivity extends AppCompatActivity implements View.OnCli
         keido = intent.getDoubleExtra("keido", 0);
 
         mScoreText.setText("Score : " + score);
+
+        Vibrator vib = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        vib.vibrate(2000);
     }
 
 
