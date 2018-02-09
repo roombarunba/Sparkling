@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1921159402",
+    "firebase_url": "https://sparkling-e93a1.firebaseio.com",
+    "project_id": "sparkling-e93a1",
+    "storage_bucket": "sparkling-e93a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1921159402:android:4d7f6e7e516a743a",
+        "android_client_info": {
+          "package_name": "com.example.nttr.sparkling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1921159402-5ejstaat22e8efks9pf3vr31fldsf5lm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nttr.sparkling",
+            "certificate_hash": "29a4e49074000c4d4f65eb81e7a7976e20050153"
+          }
+        },
+        {
+          "client_id": "1921159402-0ng3fev8pvmcci1gt1aiv2u98agbd7bh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlTZm781JoB7Hyhgxvdy77EErjB0FpfRw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1921159402-0ng3fev8pvmcci1gt1aiv2u98agbd7bh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
