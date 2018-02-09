@@ -1,6 +1,7 @@
 package com.example.nttr.sparkling;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,12 +17,11 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MultiplayActivity extends AppCompatActivity implements SensorEventListener, LocationListener{
+public class MultiplayActivity extends Activity implements SensorEventListener, LocationListener{
 
     SensorManager mSensorManager;
     Sensor mAccSensor;

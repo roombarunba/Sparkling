@@ -1,7 +1,7 @@
 package com.example.nttr.sparkling;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -13,7 +13,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
-public class RankingActivity extends AppCompatActivity implements View.OnClickListener{
+public class RankingActivity extends Activity implements View.OnClickListener{
 
     TextView u1;
     TextView u2;
