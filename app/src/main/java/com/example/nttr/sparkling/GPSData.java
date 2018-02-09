@@ -9,12 +9,14 @@ public class GPSData {
     public double keido;
     public int score;
     public int sort_score;
+    long time;
 
-    public GPSData(double ido, double keido,  int score) {
+    public GPSData(double ido, double keido,  int score, long time) {
         this.ido = ido;
         this.keido = keido;
         this.score = score;
         this.sort_score = 0 - score;
+        this.time = time;
     }
 
 }

@@ -29,8 +29,12 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
     TextView textOne;
     TextView textTwo;
     TextView textThree;
+    TextView textFour;
+    TextView textFive;
 
-    int count = 0;
+    int count = 1;
+
+    long time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,8 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
         textOne = (TextView) findViewById(R.id.MrankOne);
         textTwo = (TextView) findViewById(R.id.MrankTwo);
         textThree = (TextView) findViewById(R.id.MrankThree);
+        textFour = (TextView) findViewById(R.id.MrankFour);
+        textFive = (TextView) findViewById(R.id.MrankFive);
 
         Intent intent = getIntent();
         score = intent.getIntExtra("score", 0);
@@ -61,7 +67,8 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
 //    }
 
     private void sendMessage() {
-        final GPSData data = new GPSData(ido, keido, score);
+        time = System.currentTimeMillis();
+        final GPSData data = new GPSData(ido, keido, score, time);
         String token = UUID.randomUUID().toString();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -75,7 +82,7 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
         }
 
         Query query = myRef.orderByChild("sort_score");
-        query.limitToFirst(1).addChildEventListener(
+        query.addChildEventListener(
                 new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -83,12 +90,37 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
                         int nScore = 0;
                         double nIdo = 0;
                         double nKeido = 0;
-                        nScore = dataSnapshot.child("score").getValue(Integer.class);
-                        nIdo = dataSnapshot.child("ido").getValue(Double.class);
-                        nKeido = dataSnapshot.child("keido").getValue(Double.class);
-                        textOne.setText("score : " + nScore);
-                        textTwo.setText("緯度 : " + nIdo);
-                        textThree.setText("経度: " + nKeido);
+                        long nTime = 0;
+                        nTime = dataSnapshot.child("time").getValue(Long.class);
+                        if(Math.abs(time - nTime) > 50000){
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference("GPSranking");
+                            try{
+                                String removeS = dataSnapshot.getKey();
+                                myRef.child(removeS).removeValue();
+                            }catch (Exception e){
+                                Log.d("a", "すでに削除済み？");
+                            }
+                        }else{
+                            nScore = dataSnapshot.child("score").getValue(Integer.class);
+                            nIdo = dataSnapshot.child("ido").getValue(Double.class);
+                            nKeido = dataSnapshot.child("keido").getValue(Double.class);
+                            if(count == 1){
+                                textOne.setText("No1 score : " + nScore + ", ido : " + ido + ", keido :" + keido);
+                            }else if (count == 2){
+                                textTwo.setText("No2 score : " + nScore + ", ido : " + ido + ", keido :" + keido);
+                            }else if(count == 3){
+                                textThree.setText("No3 score : " + nScore + ", ido : " + ido + ", keido :" + keido);
+                            }else if(count == 4){
+                                textFour.setText("No4 score : " + nScore + ", ido : " + ido + ", keido :" + keido);
+                            }else if(count == 5){
+                                textFive.setText("No5 score : " + nScore + ", ido : " + ido + ", keido :" + keido);
+                            }
+                            count++;
+
+                        }
+
+
                     }
 
                     @Override
