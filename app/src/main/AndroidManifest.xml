@@ -3,7 +3,6 @@
     package="com.example.nttr.sparkling">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -23,7 +22,8 @@
         <activity android:name=".ResultActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".MultiplayActivity" />
-        <activity android:name=".MultiresultActivity"></activity>
+        <activity android:name=".MultiresultActivity" />
+        <activity android:name=".RankingActivity"></activity>
     </application>
 
 </manifest>
