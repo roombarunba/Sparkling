@@ -117,10 +117,16 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     battleB.setEnabled(true);
                     battleB.setBackgroundColor(Color.GREEN);
                     battleB.setTextColor(Color.BLUE);
                     send.setEnabled(false);
+                    send.setClickable(false);
                 }else{
                     toastMan();
                 }

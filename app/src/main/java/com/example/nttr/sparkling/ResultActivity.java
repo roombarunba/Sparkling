@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +36,8 @@ public class ResultActivity extends Activity implements View.OnClickListener{
 
     int count = 0;
 
+    Button sendRanking;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +48,8 @@ public class ResultActivity extends Activity implements View.OnClickListener{
         textOne = (TextView) findViewById(R.id.rankOne);
         textTwo = (TextView) findViewById(R.id.rankTwo);
         textThree = (TextView) findViewById(R.id.rankThree);
+
+        sendRanking = (Button) findViewById(R.id.sendRanking);
 
         Intent intent = getIntent();
         score = intent.getIntExtra("score", 0);
@@ -66,7 +75,17 @@ public class ResultActivity extends Activity implements View.OnClickListener{
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("ranking");
-            myRef.child(token).setValue(data);
+            myRef.child(token).setValue(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        sendRanking.setEnabled(false);
+                        sendRanking.setClickable(false);
+                    }else{
+                        toastMan();
+                    }
+                }
+            });
 
             try {
                 Thread.sleep(2000);
@@ -117,6 +136,11 @@ public class ResultActivity extends Activity implements View.OnClickListener{
                     }
             );
         }
+    }
+
+    void toastMan(){
+        Toast toast = Toast.makeText(this, "送信失敗！もう一回押して！", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     public void toRanking(View v){
