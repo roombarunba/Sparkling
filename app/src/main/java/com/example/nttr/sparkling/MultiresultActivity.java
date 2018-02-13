@@ -10,6 +10,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,18 +30,10 @@ import java.util.UUID;
 
 public class MultiresultActivity extends Activity implements View.OnClickListener, LocationListener{
 
-//    TextView mScoreText;
-
     int score;
     double ido;
     double keido;
     boolean first = true;
-
-//    TextView textOne;
-//    TextView textTwo;
-//    TextView textThree;
-//    TextView textFour;
-//    TextView textFive;
 
     int count = 1;
 
@@ -52,18 +46,13 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
     private static final int MinTime = 1000;
     private static final float MinDistance = 1;
 
+    CountDown countDown;
+    TextView multiCount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multiresult);
-
-//        mScoreText = (TextView) findViewById(R.id.MScoreResult);
-
-//        textOne = (TextView) findViewById(R.id.MrankOne);
-//        textTwo = (TextView) findViewById(R.id.MrankTwo);
-//        textThree = (TextView) findViewById(R.id.MrankThree);
-//        textFour = (TextView) findViewById(R.id.MrankFour);
-//        textFive = (TextView) findViewById(R.id.MrankFive);
 
         Intent intent = getIntent();
         score = intent.getIntExtra("score", 0);
@@ -75,17 +64,17 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
         battleB = (Button) findViewById(R.id.battleButton);
         battleB.setEnabled(false);
 
+        multiCount = (TextView) findViewById(R.id.MultiCount);
+
         // LocationManager インスタンス生成
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         if(ido == 0 && keido == 0){
             startGPS();
             send.setEnabled(false);
+        }else {
+            multiCount.setText("みんなの準備ができたら\n送信を押してね");
         }
-
-//        mScoreText.setText("Score : " + score);
-
-
 
         Vibrator vib = (Vibrator)getSystemService(VIBRATOR_SERVICE);
         vib.vibrate(2000);
@@ -101,12 +90,8 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
         }
     }
 
-    //    private DatabaseReference getMessageRef() {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        return database.getReference(MESSAGE_STORE); // MESSAGE_STORE = "message"
-//    }
-
     private void sendMessage() {
+        multiCount.setText("送信中…");
         time = System.currentTimeMillis();
         final GPSData data = new GPSData(ido, keido, score, time);
         String token = UUID.randomUUID().toString();
@@ -128,6 +113,7 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
                     send.setEnabled(false);
                     send.setClickable(false);
                     toastSuccess();
+                    countDownM();
                 }else{
                     toastFail();
                 }
@@ -137,8 +123,15 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
 
     }
 
+    void countDownM(){
+        long countNumber = 60000;
+        long interval = 60;
+        countDown = new CountDown(countNumber, interval, this);
+        countDown.start();
+    }
+
     void toastSuccess(){
-        Toast toast = Toast.makeText(this, "送信失敗！もう一回押して！", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, "送信成功！", Toast.LENGTH_SHORT);
         toast.show();
     }
 
@@ -237,6 +230,11 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
         }catch (NullPointerException e){
             Log.d("Ecatch", "nullpo");
         }
+        try{
+            countDown.cancel();
+        }catch (NullPointerException e){
+            Log.d("Ecatch", "nullpo");
+        }
     }
 
     private void stopGPS(){
@@ -273,6 +271,7 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
         ido = location.getLatitude();
         keido = location.getLongitude();
 
+        multiCount.setText("みんなの準備ができたら\n送信を押してね");
         send.setEnabled(true);
     }
 
@@ -294,5 +293,41 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
     private void enableLocationSettings() {
         Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(settingsIntent);
+    }
+
+
+    class CountDown extends CountDownTimer {
+
+        MultiresultActivity multiresultActivity;
+
+        public CountDown(long millisInFuture, long countDownInterval, MultiresultActivity multiresultActivity) {
+            super(millisInFuture, countDownInterval);
+            this.multiresultActivity = multiresultActivity;
+        }
+
+        @Override
+        public void onFinish() {
+            // 完了
+            // 画面繊維
+//            finish();
+//            Intent intent = new Intent(multiresultActivity, MultiresultActivity.class);
+//            intent.putExtra("score", score);
+//            intent.putExtra("ido", ido);
+//            intent.putExtra("keido", keido);
+//            startActivity(intent);
+            multiCount.setText("参加締め切り！");
+        }
+
+        // インターバルで呼ばれる
+        @Override
+        public void onTick(long millisUntilFinished) {
+            // 残り時間を分、秒、ミリ秒に分割
+            long mm = millisUntilFinished / 1000 / 60;
+            long ss = millisUntilFinished / 1000 % 60;
+            long ms = millisUntilFinished - ss * 1000 - mm * 1000 * 60;
+            //timerText.setText(String.format("%1$02d:%2$02d.%3$03d", mm, ss, ms));
+
+            multiCount.setText("参加締め切りまで\n残り" + ss + "秒");
+        }
     }
 }
