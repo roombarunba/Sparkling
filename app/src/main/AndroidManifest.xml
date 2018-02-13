@@ -23,7 +23,8 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".MultiplayActivity" />
         <activity android:name=".MultiresultActivity" />
-        <activity android:name=".RankingActivity"></activity>
+        <activity android:name=".RankingActivity" />
+        <activity android:name=".MultibattleActivity"></activity>
     </application>
 
 </manifest>
