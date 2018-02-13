@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class RankingActivity extends Activity implements View.OnClickListener{
 
@@ -70,47 +71,61 @@ public class RankingActivity extends Activity implements View.OnClickListener{
         DatabaseReference myRef = database.getReference("ranking");
 
         Query query = myRef.orderByChild("sort_score");
+        query.limitToFirst(10).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("aaa", "aaaaa");
+                int nScore = 0;
+                String nPlace = "";
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+                    nScore = data.child("score").getValue(Integer.class);
+                    nPlace = data.child("place").getValue(String.class);
+                    if(count == 0){
+                        u1.setText(nPlace);
+                        s1.setText("" + nScore);
+                    }else if(count == 1){
+                        u2.setText(nPlace);
+                        s2.setText("" + nScore);
+                    }else if(count == 2){
+                        u3.setText(nPlace);
+                        s3.setText("" + nScore);
+                    }else if(count == 3){
+                        u4.setText(nPlace);
+                        s4.setText("" + nScore);
+                    }else if(count == 4){
+                        u5.setText(nPlace);
+                        s5.setText("" + nScore);
+                    }else if(count == 5){
+                        u6.setText(nPlace);
+                        s6.setText("" + nScore);
+                    }else if(count == 6){
+                        u7.setText(nPlace);
+                        s7.setText("" + nScore);
+                    }else if(count == 7){
+                        u8.setText(nPlace);
+                        s8.setText("" + nScore);
+                    }else if(count == 8){
+                        u9.setText(nPlace);
+                        s9.setText("" + nScore);
+                    }else if(count == 9){
+                        u10.setText(nPlace);
+                        s10.setText("" + nScore);
+                    }
+                    count++;
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         query.limitToFirst(10).addChildEventListener(
                 new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                        Log.d("aaa", "aaaaa");
-                        int nScore = 0;
-                        String nPlace = "";
-                        nScore = dataSnapshot.child("score").getValue(Integer.class);
-                        nPlace = dataSnapshot.child("place").getValue(String.class);
-                        if(count == 0){
-                            u1.setText(nPlace);
-                            s1.setText("" + nScore);
-                        }else if(count == 1){
-                            u2.setText(nPlace);
-                            s2.setText("" + nScore);
-                        }else if(count == 2){
-                            u3.setText(nPlace);
-                            s3.setText("" + nScore);
-                        }else if(count == 3){
-                            u4.setText(nPlace);
-                            s4.setText("" + nScore);
-                        }else if(count == 4){
-                            u5.setText(nPlace);
-                            s5.setText("" + nScore);
-                        }else if(count == 5){
-                            u6.setText(nPlace);
-                            s6.setText("" + nScore);
-                        }else if(count == 6){
-                            u7.setText(nPlace);
-                            s7.setText("" + nScore);
-                        }else if(count == 7){
-                            u8.setText(nPlace);
-                            s8.setText("" + nScore);
-                        }else if(count == 8){
-                            u9.setText(nPlace);
-                            s9.setText("" + nScore);
-                        }else if(count == 9){
-                            u10.setText(nPlace);
-                            s10.setText("" + nScore);
-                        }
-                        count++;
+
                     }
 
                     @Override
