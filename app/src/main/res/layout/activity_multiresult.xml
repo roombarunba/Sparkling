@@ -7,7 +7,7 @@
     tools:context="com.example.nttr.sparkling.MultiresultActivity">
 
     <Button
-        android:id="@+id/Mbutton2"
+        android:id="@+id/sendButton"
         android:layout_width="166dp"
         android:layout_height="119dp"
         android:layout_marginBottom="8dp"

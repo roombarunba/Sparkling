@@ -114,7 +114,7 @@ public class TitleActivity extends Activity implements View.OnClickListener{
         if (!gpsEnabled) {
             // GPSを設定するように促す
             AlertDialog alertDialog = new AlertDialog.Builder(this)
-                    .setTitle("タイトル")
+                    .setTitle("せつめいしょ")
                     .setMessage("このモードで遊ぶためには、\n\n"
                             + "①　GPSをON\n" + "②　位置情報をWi-Fi、Bluethooth、モバイルネットワークから特定可能\n\n"
                             + "に設定する必要があります")
