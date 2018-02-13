@@ -7,5 +7,6 @@
 /build
 /captures
 .externalNativeBuild
-google-services.json
 app/release/*
+ps_app.zip
+app/google-services.json
