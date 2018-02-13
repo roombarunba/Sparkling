@@ -127,8 +127,9 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
                     battleB.setTextColor(Color.BLUE);
                     send.setEnabled(false);
                     send.setClickable(false);
+                    toastSuccess();
                 }else{
-                    toastMan();
+                    toastFail();
                 }
             }
         });
@@ -136,7 +137,12 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
 
     }
 
-    void toastMan(){
+    void toastSuccess(){
+        Toast toast = Toast.makeText(this, "送信失敗！もう一回押して！", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+    void toastFail(){
         Toast toast = Toast.makeText(this, "送信失敗！もう一回押して！", Toast.LENGTH_SHORT);
         toast.show();
     }
