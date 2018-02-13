@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,12 +17,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import java.util.UUID;
 
@@ -35,12 +30,6 @@ public class ResultActivity extends Activity implements View.OnClickListener{
     String place;
     boolean first = true;
 
-    TextView textOne;
-    TextView textTwo;
-    TextView textThree;
-
-    int count = 0;
-
     Button sendRanking;
 
     @Override
@@ -49,10 +38,6 @@ public class ResultActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_result);
 
         mScoreText = (TextView) findViewById(R.id.ScoreResult);
-
-        textOne = (TextView) findViewById(R.id.rankOne);
-        textTwo = (TextView) findViewById(R.id.rankTwo);
-        textThree = (TextView) findViewById(R.id.rankThree);
 
         sendRanking = (Button) findViewById(R.id.sendRanking);
 
@@ -65,12 +50,6 @@ public class ResultActivity extends Activity implements View.OnClickListener{
         Vibrator vib = (Vibrator)getSystemService(VIBRATOR_SERVICE);
         vib.vibrate(2000);
     }
-
-
-//    private DatabaseReference getMessageRef() {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        return database.getReference(MESSAGE_STORE); // MESSAGE_STORE = "message"
-//    }
 
     public void sendMessage(View v) {
         final SharedPreferences data = getSharedPreferences("uid", Context.MODE_PRIVATE);
@@ -108,55 +87,6 @@ public class ResultActivity extends Activity implements View.OnClickListener{
                                     }
                                 }
                             });
-
-//                            try {
-//                                Thread.sleep(2000);
-//                            } catch (InterruptedException e) {
-//                                e.printStackTrace();
-//                            }
-
-                            Query query = myRef.orderByChild("sort_score");
-                            query.limitToFirst(3).addChildEventListener(
-                                    new ChildEventListener() {
-                                        @Override
-                                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                            Log.d("aaa", "aaaaa");
-                                            int nScore = 0;
-                                            String nPlace = "";
-                                            nScore = dataSnapshot.child("score").getValue(Integer.class);
-                                            nPlace = dataSnapshot.child("place").getValue(String.class);
-                                            if(count == 0){
-                                                textOne.setText("score : " + nScore + ", place : " + nPlace);
-                                            }else if(count == 1){
-                                                textTwo.setText("score : " + nScore + ", place : " + nPlace);
-                                            }else if(count == 2){
-                                                textThree.setText("score : " + nScore + ", place : " + nPlace);
-                                                count = -1;
-                                            }
-                                            count++;
-                                        }
-
-                                        @Override
-                                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                                            Log.d("aaa", "bbbbb");
-                                        }
-
-                                        @Override
-                                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-                                            Log.d("aaa", "ccccc");
-                                        }
-
-                                        @Override
-                                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                                            Log.d("aaa", "ddddd");
-                                        }
-
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-                                            Log.d("aaa", "eeeee");
-                                        }
-                                    }
-                            );
                         }
                     }
                 })
