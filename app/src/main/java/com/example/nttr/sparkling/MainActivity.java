@@ -36,6 +36,8 @@ public class MainActivity extends Activity implements SensorEventListener{
 
     String place = "place";
 
+    boolean start = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +53,7 @@ public class MainActivity extends Activity implements SensorEventListener{
         mScoreText = (TextView) findViewById(R.id.scoreText);
         mTimeText = (TextView) findViewById(R.id.timeText);
 
-        long countNumber = 1000;
+        long countNumber = 12100;
         long interval = 10;
         countDown = new CountDown(countNumber, interval, this);
         countDown.start();
@@ -60,33 +62,35 @@ public class MainActivity extends Activity implements SensorEventListener{
     // 加速度センサーの値に変化があった時に呼ばれる
     @Override
     public void onSensorChanged(SensorEvent event) {
-        double nx = event.values[0];
-        double ny = event.values[1];
-        double nz = event.values[2];
-        if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-            Log.d("加速度", "x = " + nx
-                    + ", y = " + ny
-                    + ", z = " + nz);
+        if(start){
+            double nx = event.values[0];
+            double ny = event.values[1];
+            double nz = event.values[2];
+            if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+                Log.d("加速度", "x = " + nx
+                        + ", y = " + ny
+                        + ", z = " + nz);
+            }
+
+            mTextX.setText("" + nx);
+            mTextY.setText("" + ny);
+            mTextZ.setText("" + nz);
+
+            if(first){
+                first = false;
+            }else{
+                double sx = Math.abs(nx - beforeX);
+                double sy = Math.abs(ny - beforeY);
+                double sz = Math.abs(nz - beforeZ);
+                score += Math.sqrt((sx*sx) + (sy*sy) + (sz*sz));
+            }
+
+            beforeX = nx;
+            beforeY = ny;
+            beforeZ = nz;
+
+            mScoreText.setText("" + (int)score);
         }
-
-        mTextX.setText("" + nx);
-        mTextY.setText("" + ny);
-        mTextZ.setText("" + nz);
-
-        if(first){
-            first = false;
-        }else{
-            double sx = Math.abs(nx - beforeX);
-            double sy = Math.abs(ny - beforeY);
-            double sz = Math.abs(nz - beforeZ);
-            score += Math.sqrt((sx*sx) + (sy*sy) + (sz*sz));
-        }
-
-        beforeX = nx;
-        beforeY = ny;
-        beforeZ = nz;
-
-        mScoreText.setText("" + (int)score);
     }
 
     // 加速度センサーの精度が変更された時に呼ばれる
@@ -150,6 +154,18 @@ public class MainActivity extends Activity implements SensorEventListener{
             //timerText.setText(String.format("%1$02d:%2$02d.%3$03d", mm, ss, ms));
 
             mTimeText.setText("" + millisUntilFinished);
+            if(millisUntilFinished <= 10000){
+                start = true;
+                mTimeText.setText("" + millisUntilFinished);
+            }else if (millisUntilFinished <= 10700){
+                mTimeText.setText("開始まで 1");
+            }else if (millisUntilFinished <= 11400){
+                mTimeText.setText("開始まで 2");
+            }else if (millisUntilFinished <= 12500){
+                mTimeText.setText("開始まで 3");
+            }else{
+                Log.d("spark", "なんすか");
+            }
         }
     }
 }
