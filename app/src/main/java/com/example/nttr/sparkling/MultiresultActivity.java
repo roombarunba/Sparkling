@@ -80,16 +80,6 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
         vib.vibrate(2000);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(ido == 0 && keido == 0){
-            send.setEnabled(false);
-        }else{
-            send.setEnabled(true);
-        }
-    }
-
     private void sendMessage() {
         multiCount.setText("送信中…");
         time = System.currentTimeMillis();
