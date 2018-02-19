@@ -24,7 +24,8 @@
         <activity android:name=".MultiplayActivity" />
         <activity android:name=".MultiresultActivity" />
         <activity android:name=".RankingActivity" />
-        <activity android:name=".MultibattleActivity"></activity>
+        <activity android:name=".MultibattleActivity" />
+        <activity android:name=".PrivacyActivity"></activity>
     </application>
 
 </manifest>

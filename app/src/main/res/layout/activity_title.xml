@@ -10,25 +10,56 @@
         android:id="@+id/startButton"
         android:layout_width="182dp"
         android:layout_height="125dp"
+        android:layout_marginBottom="8dp"
         android:onClick="startGame"
-        android:text="Start"
+        android:text="世界一を目指す"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonGPS"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.29" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonGPS"
         android:layout_width="178dp"
         android:layout_height="103dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="92dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:onClick="startGPS"
-        android:text="GPS"
+        android:text="地元一を目指す"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/asobikata"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/asobikata"
+        android:layout_width="151dp"
+        android:layout_height="85dp"
+        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:onClick="asobikata"
+        android:text="あそびかた"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/priv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/priv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:color/transparent"
+        android:onClick="priva"
+        android:text="プライバシーポリシー"
+        android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
