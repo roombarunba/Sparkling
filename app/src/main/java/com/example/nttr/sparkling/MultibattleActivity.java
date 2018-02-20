@@ -38,7 +38,7 @@ public class MultibattleActivity extends Activity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multibattle);
 
-        myScore = (TextView) findViewById(R.id.myScore);
+        myScore = (TextView) findViewById(R.id.myScoreR);
         score1 = (TextView) findViewById(R.id.Someone);
         score2 = (TextView) findViewById(R.id.SomeTwo);
         score3 = (TextView) findViewById(R.id.SomeThree);
@@ -51,7 +51,7 @@ public class MultibattleActivity extends Activity implements View.OnClickListene
         keido = intent.getDoubleExtra("keido", 0);
         time = intent.getLongExtra("time", 0);
 
-        myScore.setText("" + score);
+        myScore.setText("あなたのスコア：" + score);
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
