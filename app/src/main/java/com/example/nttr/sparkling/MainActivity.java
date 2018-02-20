@@ -10,6 +10,8 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements SensorEventListener{
@@ -17,9 +19,6 @@ public class MainActivity extends Activity implements SensorEventListener{
     SensorManager mSensorManager;
     Sensor mAccSensor;
 
-    TextView mTextX;
-    TextView mTextY;
-    TextView mTextZ;
     TextView mScoreText;
 
     double beforeX = 0;
@@ -38,6 +37,9 @@ public class MainActivity extends Activity implements SensorEventListener{
 
     boolean start = false;
 
+    TextView countDownT;
+    ImageView cola;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +49,11 @@ public class MainActivity extends Activity implements SensorEventListener{
 
         mAccSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        mTextX = (TextView) findViewById(R.id.textX);
-        mTextY = (TextView) findViewById(R.id.textY);
-        mTextZ = (TextView) findViewById(R.id.textZ);
         mScoreText = (TextView) findViewById(R.id.scoreText);
         mTimeText = (TextView) findViewById(R.id.timeText);
+
+        countDownT = (TextView) findViewById(R.id.countDownText);
+        cola = (ImageView) findViewById(R.id.cola);
 
         long countNumber = 12100;
         long interval = 10;
@@ -71,10 +73,6 @@ public class MainActivity extends Activity implements SensorEventListener{
                         + ", y = " + ny
                         + ", z = " + nz);
             }
-
-            mTextX.setText("" + nx);
-            mTextY.setText("" + ny);
-            mTextZ.setText("" + nz);
 
             if(first){
                 first = false;
@@ -153,16 +151,20 @@ public class MainActivity extends Activity implements SensorEventListener{
             //long ms = millisUntilFinished - ss * 1000 - mm * 1000 * 60;
             //timerText.setText(String.format("%1$02d:%2$02d.%3$03d", mm, ss, ms));
 
-            mTimeText.setText("" + millisUntilFinished);
-            if(millisUntilFinished <= 10000){
+            if(millisUntilFinished <= 9000){
+                countDownT.setVisibility(View.INVISIBLE);
+                cola.setVisibility(View.VISIBLE);
+                mTimeText.setText("" + millisUntilFinished + "ms");
+            }else if(millisUntilFinished <= 10000){
                 start = true;
-                mTimeText.setText("" + millisUntilFinished);
+                countDownT.setText("GO!!");
+                mTimeText.setText("" + millisUntilFinished + "ms");
             }else if (millisUntilFinished <= 10700){
-                mTimeText.setText("開始まで 1");
+                countDownT.setText("１");
             }else if (millisUntilFinished <= 11400){
-                mTimeText.setText("開始まで 2");
+                countDownT.setText("２");
             }else if (millisUntilFinished <= 12500){
-                mTimeText.setText("開始まで 3");
+                countDownT.setText("３");
             }else{
                 Log.d("spark", "なんすか");
             }
