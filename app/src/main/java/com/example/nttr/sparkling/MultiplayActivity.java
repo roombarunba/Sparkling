@@ -18,6 +18,8 @@ import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +28,6 @@ public class MultiplayActivity extends Activity implements SensorEventListener, 
     SensorManager mSensorManager;
     Sensor mAccSensor;
 
-    TextView mTextX;
-    TextView mTextY;
-    TextView mTextZ;
     TextView mScoreText;
 
     double beforeX = 0;
@@ -43,7 +42,8 @@ public class MultiplayActivity extends Activity implements SensorEventListener, 
 
     CountDown countDown;
 
-    String place = "place";
+    TextView countDownT;
+    ImageView cola;
 
     private LocationManager locationManager;
 
@@ -64,11 +64,11 @@ public class MultiplayActivity extends Activity implements SensorEventListener, 
 
         mAccSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
-        mTextX = (TextView) findViewById(R.id.MtextX);
-        mTextY = (TextView) findViewById(R.id.MtextY);
-        mTextZ = (TextView) findViewById(R.id.MtextZ);
         mScoreText = (TextView) findViewById(R.id.MscoreText);
         mTimeText = (TextView) findViewById(R.id.MtimeText);
+
+        countDownT = (TextView) findViewById(R.id.countDownText_m);
+        cola = (ImageView) findViewById(R.id.cola_m);
 
         // LocationManager インスタンス生成
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -93,10 +93,6 @@ public class MultiplayActivity extends Activity implements SensorEventListener, 
                         + ", z = " + nz);
             }
 
-            mTextX.setText("" + nx);
-            mTextY.setText("" + ny);
-            mTextZ.setText("" + nz);
-
             if(first){
                 first = false;
             }else{
@@ -109,8 +105,6 @@ public class MultiplayActivity extends Activity implements SensorEventListener, 
             beforeX = nx;
             beforeY = ny;
             beforeZ = nz;
-
-            mScoreText.setText("" + (int)score);
         }
     }
 
@@ -267,6 +261,7 @@ public class MultiplayActivity extends Activity implements SensorEventListener, 
 
         ido = location.getLatitude();
         keido = location.getLongitude();
+        stopGPS();
     }
 
     @Override
@@ -324,15 +319,20 @@ public class MultiplayActivity extends Activity implements SensorEventListener, 
             //long ms = millisUntilFinished - ss * 1000 - mm * 1000 * 60;
             //timerText.setText(String.format("%1$02d:%2$02d.%3$03d", mm, ss, ms));
 
-            if(millisUntilFinished <= 10000){
+            if(millisUntilFinished <= 9000){
+                countDownT.setVisibility(View.INVISIBLE);
+                cola.setVisibility(View.VISIBLE);
+                mTimeText.setText("" + millisUntilFinished + "ms");
+            }else if(millisUntilFinished <= 10000){
                 start = true;
-                mTimeText.setText("" + millisUntilFinished);
+                countDownT.setText("GO!!");
+                mTimeText.setText("" + millisUntilFinished + "ms");
             }else if (millisUntilFinished <= 10700){
-                mTimeText.setText("開始まで 1");
+                countDownT.setText("１");
             }else if (millisUntilFinished <= 11400){
-                mTimeText.setText("開始まで 2");
+                countDownT.setText("２");
             }else if (millisUntilFinished <= 12500){
-                mTimeText.setText("開始まで 3");
+                countDownT.setText("３");
             }else{
                 Log.d("spark", "なんすか");
             }

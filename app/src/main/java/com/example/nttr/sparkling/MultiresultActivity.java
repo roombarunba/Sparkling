@@ -263,6 +263,7 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
 
         multiCount.setText("みんなの準備ができたら\n送信を押してね");
         send.setEnabled(true);
+        stopGPS();
     }
 
     @Override
