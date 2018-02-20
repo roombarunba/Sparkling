@@ -26,9 +26,6 @@ public class TitleActivity extends Activity implements View.OnClickListener{
 
     private LocationManager locationManager;
 
-    Button asobu;
-    Button priv;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +33,9 @@ public class TitleActivity extends Activity implements View.OnClickListener{
         
         mStartButton = (Button) findViewById(R.id.startButton);
         mGPSButton = (Button) findViewById(R.id.buttonGPS);
-        asobu = (Button) findViewById(R.id.asobikata);
-        priv = (Button) findViewById(R.id.priv);
+//        asobu = (Button) findViewById(R.id.asobikata);
+//        priv = (Button) findViewById(R.id.priv);
+//        toRan = (Button) findViewById(R.id.toRanking);
     }
 
     public void startGame(View v) {
@@ -164,6 +162,11 @@ public class TitleActivity extends Activity implements View.OnClickListener{
 
     public void priva(View v){
         Intent intent = new Intent(this, PrivacyActivity.class);
+        startActivity(intent);
+    }
+
+    public void toRan(View v){
+        Intent intent = new Intent(this, RankingActivity.class);
         startActivity(intent);
     }
 

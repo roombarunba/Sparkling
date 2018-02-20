@@ -13,8 +13,6 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         android:src="@mipmap/c_awa"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,24 +20,24 @@
         android:id="@+id/startButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="21dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         android:background="@mipmap/red"
         android:onClick="startGame"
         android:text="ひとりであそぶ"
         android:textColor="@android:color/background_light"
         android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/toRanking"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.023"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonGPS"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:background="@mipmap/blue"
@@ -50,15 +48,13 @@
         app:layout_constraintBottom_toTopOf="@+id/asobikata"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startButton"
-        app:layout_constraintVertical_bias="0.525" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/asobikata"
         android:layout_width="201dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_marginBottom="12dp"
         android:background="@mipmap/rgreen"
         android:onClick="asobikata"
         android:text="あそびかた"
@@ -73,21 +69,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
+        android:layout_marginStart="28dp"
         android:background="@android:color/transparent"
         android:onClick="priva"
         android:text="プライバシーポリシー"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/asobikata" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
         android:src="@mipmap/ci2"
+        app:layout_constraintBottom_toTopOf="@+id/startButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.283" />
+
+    <Button
+        android:id="@+id/toRanking"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@mipmap/orange"
+        android:onClick="toRan"
+        android:text="ランキング"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonGPS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
