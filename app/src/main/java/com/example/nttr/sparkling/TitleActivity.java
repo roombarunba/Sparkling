@@ -143,13 +143,13 @@ public class TitleActivity extends Activity implements View.OnClickListener{
     public void asobikata(View v){
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("あそびかた")
-                .setMessage("端末を10秒間\nおもいっっっきり振って\nその激しさで勝負！！\n\n" +
-                        "『ひとりであそぶ』モードでは\n世界規模のランキング戦！！\n\n" +
-                        "『みんなであそぶ』モードでは、\n近くにいる人との\nランキング戦が楽しめるぞ！！\n\n" +
+                .setMessage("端末を炭酸ジュースに見立てて10秒間おもいっっっきり振ろう！\nより激しく振ってより激しく炭酸ジュースを爆発させた人の勝ちだ！！\n\n" +
+                        "『ひとりであそぶ』モードでは世界規模のランキング戦！！\n\n" +
+                        "『みんなであそぶ』モードでは、近くにいる人とのランキング戦が楽しめるぞ！！\n\n" +
                         "※「みんなであそぶ」モードでは\n" +
                         "①　GPSをON\n" + "②　位置情報をWi-Fi、Bluethooth、モバイルネットワークから特定可能\n"
                         + "に設定する必要があります\n\n" +
-                        "※「みんなであそぶ」モード終了後30秒以内に\n再び「みんなであそぶ」モードを遊ぶと\n前回の記録が残る場合があります。\nその場合は昔の自分とも戦ってください。")
+                        "※「みんなであそぶ」モード終了後30秒以内に再び「みんなであそぶ」モードを遊ぶと前回の記録が残る場合があります。その場合は昔の自分とも戦ってください。")
                 .setPositiveButton("わかった！！！！", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
