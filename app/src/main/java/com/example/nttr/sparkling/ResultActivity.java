@@ -36,7 +36,6 @@ public class ResultActivity extends Activity implements View.OnClickListener{
 
     Button sendRanking;
 
-    Drawable red_g;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,7 @@ public class ResultActivity extends Activity implements View.OnClickListener{
                         if(first){
                             sendRanking.setEnabled(false);
                             sendRanking.setClickable(false);
-                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.red_g);
+                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.blue_g);
                             Drawable drawable = new BitmapDrawable(getResources(), bitmap);
                             sendRanking.setBackground(drawable);
                             first = false;
@@ -120,7 +119,7 @@ public class ResultActivity extends Activity implements View.OnClickListener{
         first = true;
         sendRanking.setEnabled(true);
         sendRanking.setClickable(true);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.red);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.blue);
         Drawable drawable = new BitmapDrawable(getResources(), bitmap);
         sendRanking.setBackground(drawable);
     }

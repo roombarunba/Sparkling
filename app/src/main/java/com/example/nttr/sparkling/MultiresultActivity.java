@@ -5,7 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -49,6 +52,8 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
     CountDown countDown;
     TextView multiCount;
 
+    CountDown_G cg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +68,7 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
 
         battleB = (Button) findViewById(R.id.battleButton);
         battleB.setEnabled(false);
+        battleB.setClickable(false);
 
         multiCount = (TextView) findViewById(R.id.MultiCount);
 
@@ -71,7 +77,11 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
 
         if(ido == 0 && keido == 0){
             startGPS();
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.blue_g);
+            Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+            send.setBackground(drawable);
             send.setEnabled(false);
+            send.setClickable(false);
         }else {
             multiCount.setText("みんなの準備ができたら\n送信を押してね");
         }
@@ -98,10 +108,15 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
                         e.printStackTrace();
                     }
                     battleB.setEnabled(true);
-                    battleB.setBackgroundColor(Color.GREEN);
-                    battleB.setTextColor(Color.BLUE);
+                    battleB.setClickable(true);
+                    Bitmap bitmap_b = BitmapFactory.decodeResource(getResources(), R.mipmap.red);
+                    Drawable drawable_b = new BitmapDrawable(getResources(), bitmap_b);
+                    battleB.setBackground(drawable_b);
                     send.setEnabled(false);
                     send.setClickable(false);
+                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.blue_g);
+                    Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+                    send.setBackground(drawable);
                     toastSuccess();
                     countDownM();
                 }else{
@@ -161,7 +176,7 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
                     .setTitle("位置が取得できません")
                     .setMessage("このモードで遊ぶためには、\n\n"
                             + "①　GPSをON\n" + "②　位置情報をWi-Fi、Bluethooth、モバイルネットワークから特定可能\n\n"
-                            + "に設定する必要があります")
+                            + "に設定する必要があります\n\n※通信環境もご確認ください")
                     .setPositiveButton("設定画面へ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -170,6 +185,11 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
                     })
                     .create();
             alertDialog.show();
+            long countNumber = 10000;
+            long interval = 10000;
+            cg = new CountDown_G(countNumber, interval, this);
+            cg.start();
+            locationManager = null;
         }
 
         if (locationManager != null) {
@@ -225,6 +245,11 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
         }catch (NullPointerException e){
             Log.d("Ecatch", "nullpo");
         }
+        try{
+            cg.cancel();
+        }catch (NullPointerException e){
+            Log.d("Ecatch", "nullpo");
+        }
     }
 
     private void stopGPS(){
@@ -262,7 +287,11 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
         keido = location.getLongitude();
 
         multiCount.setText("みんなの準備ができたら\n送信を押してね");
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.blue);
+        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+        send.setBackground(drawable);
         send.setEnabled(true);
+        send.setClickable(true);
         stopGPS();
     }
 
@@ -319,6 +348,30 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
             //timerText.setText(String.format("%1$02d:%2$02d.%3$03d", mm, ss, ms));
 
             multiCount.setText("参加締め切りまで\n残り" + ss + "秒");
+        }
+    }
+
+    class CountDown_G extends CountDownTimer {
+
+        MultiresultActivity multiresultActivity;
+
+        public CountDown_G(long millisInFuture, long countDownInterval, MultiresultActivity multiresultActivity) {
+            super(millisInFuture, countDownInterval);
+            this.multiresultActivity = multiresultActivity;
+        }
+
+        @Override
+        public void onFinish() {
+            locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+            if(ido == 0 && keido == 0) {
+                startGPS();
+            }
+        }
+
+        // インターバルで呼ばれる
+        @Override
+        public void onTick(long millisUntilFinished) {
+            // 残り時間を分、秒、ミリ秒に分割
         }
     }
 }

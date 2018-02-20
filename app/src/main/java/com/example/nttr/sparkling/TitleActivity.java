@@ -120,7 +120,7 @@ public class TitleActivity extends Activity implements View.OnClickListener{
                     .setTitle("せつめいしょ")
                     .setMessage("このモードで遊ぶためには、\n\n"
                             + "①　GPSをON\n" + "②　位置情報をWi-Fi、Bluethooth、モバイルネットワークから特定可能\n\n"
-                            + "に設定する必要があります")
+                            + "に設定する必要があります\n\n※通信環境もご確認ください")
                     .setPositiveButton("設定画面へ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
