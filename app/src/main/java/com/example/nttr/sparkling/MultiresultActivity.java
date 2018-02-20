@@ -114,7 +114,7 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
     }
 
     void countDownM(){
-        long countNumber = 60000;
+        long countNumber = 30000;
         long interval = 60;
         countDown = new CountDown(countNumber, interval, this);
         countDown.start();
