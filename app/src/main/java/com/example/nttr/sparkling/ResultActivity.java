@@ -6,6 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
@@ -32,6 +36,8 @@ public class ResultActivity extends Activity implements View.OnClickListener{
 
     Button sendRanking;
 
+    Drawable red_g;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +51,7 @@ public class ResultActivity extends Activity implements View.OnClickListener{
         score = intent.getIntExtra("score", 0);
         place = intent.getStringExtra("place");
 
-        mScoreText.setText("Score : " + score);
+        mScoreText.setText("スコア：" + score);
 
         Vibrator vib = (Vibrator)getSystemService(VIBRATOR_SERVICE);
         vib.vibrate(2000);
@@ -65,6 +71,11 @@ public class ResultActivity extends Activity implements View.OnClickListener{
                 .setPositiveButton("送信", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         if(first){
+                            sendRanking.setEnabled(false);
+                            sendRanking.setClickable(false);
+                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.red_g);
+                            Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+                            sendRanking.setBackground(drawable);
                             first = false;
                             place = editView.getText().toString();
                             SharedPreferences.Editor editor = data.edit();
@@ -106,6 +117,12 @@ public class ResultActivity extends Activity implements View.OnClickListener{
     void toastFail(){
         Toast toast = Toast.makeText(this, "送信失敗！もう一回押して！", Toast.LENGTH_SHORT);
         toast.show();
+        first = true;
+        sendRanking.setEnabled(true);
+        sendRanking.setClickable(true);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.red);
+        Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+        sendRanking.setBackground(drawable);
     }
 
     public void toRanking(View v){
