@@ -7,6 +7,33 @@
     tools:context="com.example.nttr.sparkling.PrivacyActivity"
     tools:layout_editor_absoluteY="25dp">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/c_awa"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginStart="41dp"
+        android:background="@mipmap/blue"
+        android:onClick="onClick"
+        android:text="もどる"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -15,6 +42,7 @@
         android:layout_marginTop="16dp"
         android:text="プライバシーポリシー"
         android:textAlignment="center"
+        android:textColor="@android:color/background_dark"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,9 +54,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="32dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginStart="29dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="28dp"
+        android:layout_marginStart="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
@@ -42,6 +70,7 @@
             android:layout_marginStart="17dp"
             android:text="TextView"
             android:textAlignment="viewStart"
+            android:textColor="@android:color/background_dark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

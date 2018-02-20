@@ -3,9 +3,10 @@ package com.example.nttr.sparkling;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
 import android.widget.TextView;
 
-public class PrivacyActivity extends Activity {
+public class PrivacyActivity extends Activity implements View.OnClickListener{
 
     TextView textView;
 
@@ -38,5 +39,10 @@ public class PrivacyActivity extends Activity {
 
                 "本方針および当社の個人情報の取り扱いに関するお問合せ窓口\n"+
                 "電子メール: hoppingroppo@gmail.com\n");
+    }
+
+    @Override
+    public void onClick(View v) {
+        this.finish();
     }
 }
