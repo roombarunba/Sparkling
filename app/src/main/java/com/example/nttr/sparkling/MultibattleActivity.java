@@ -83,7 +83,8 @@ public class MultibattleActivity extends Activity implements View.OnClickListene
                             }
                         }else if (Math.abs(time - nTime) <= 32000 && Math.abs(ido - nIdo) <= 0.001
                                 && Math.abs(keido - nKeido) <= 0.001){
-                            nScore = data.child("score").getValue(Integer.class);
+                            nScore = data.child("sort_score").getValue(Integer.class);
+                            nScore *= -1;
                             if(count == 1){
                                 score1.setText("" + nScore);
                                 if(nScore == score){
