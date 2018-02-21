@@ -1,6 +1,7 @@
 package com.example.nttr.sparkling;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -14,6 +15,7 @@ public class PrivacyActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_privacy);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         textView = (TextView) findViewById(R.id.priv_text);
         textView.setMovementMethod(ScrollingMovementMethod.getInstance());
         textView.setText("個人情報の取り扱いについて\n\n" +

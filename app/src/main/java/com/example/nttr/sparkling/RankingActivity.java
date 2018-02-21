@@ -1,6 +1,7 @@
 package com.example.nttr.sparkling;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +44,7 @@ public class RankingActivity extends Activity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         u1 = (TextView) findViewById(R.id.u1);
         u2 = (TextView) findViewById(R.id.u2);
