@@ -34,7 +34,7 @@ import java.util.UUID;
 
 public class MultiresultActivity extends Activity implements View.OnClickListener, LocationListener{
 
-    int score;
+    int m_score;
     double ido;
     double keido;
     boolean first = true;
@@ -62,7 +62,7 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Intent intent = getIntent();
-        score = intent.getIntExtra("score", 0);
+        m_score = intent.getIntExtra("score", 0);
         ido = intent.getDoubleExtra("ido", 0);
         keido = intent.getDoubleExtra("keido", 0);
 
@@ -95,7 +95,7 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
     private void sendMessage() {
         multiCount.setText("送信中…");
         time = System.currentTimeMillis();
-        final GPSData data = new GPSData(ido, keido, score, time);
+        final GPSData data = new GPSData(ido, keido, m_score, time);
         String token = UUID.randomUUID().toString();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -150,7 +150,7 @@ public class MultiresultActivity extends Activity implements View.OnClickListene
     public void battle(View v){
         finish();
         Intent intent = new Intent(this,MultibattleActivity.class);
-        intent.putExtra("score", score);
+        intent.putExtra("m_score", m_score);
         intent.putExtra("ido", ido);
         intent.putExtra("keido", keido);
         intent.putExtra("time", time);

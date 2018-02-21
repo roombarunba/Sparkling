@@ -7,15 +7,15 @@ package com.example.nttr.sparkling;
 public class GPSData {
     public double ido;
     public double keido;
-//    public int score;
-    public int sort_score;
+//    public int m_score;
+    public int m_sort_score;
     public long time;
 
-    public GPSData(double ido, double keido,  int score, long time) {
+    public GPSData(double ido, double keido,  int m_score, long time) {
         this.ido = ido;
         this.keido = keido;
-//        this.score = score;
-        this.sort_score = 0 - score;
+//        this.score = m_score;
+        this.m_sort_score = 0 - m_score;
         this.time = time;
     }
 

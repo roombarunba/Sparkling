@@ -25,7 +25,7 @@ public class MultibattleActivity extends Activity implements View.OnClickListene
 
     TextView resultText;
 
-    int score;
+    int m_score;
     double ido;
     double keido;
     long time;
@@ -48,18 +48,18 @@ public class MultibattleActivity extends Activity implements View.OnClickListene
         resultText = (TextView) findViewById(R.id.resultText);
 
         Intent intent = getIntent();
-        score = intent.getIntExtra("score", 0);
+        m_score = intent.getIntExtra("m_score", 0);
         ido = intent.getDoubleExtra("ido", 0);
         keido = intent.getDoubleExtra("keido", 0);
         time = intent.getLongExtra("time", 0);
 
-        myScore.setText("あなたのスコア：" + score);
+        myScore.setText("あなたのスコア：" + m_score);
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef2 = database.getReference("GPSranking");
 
-        Query query = myRef2.orderByChild("sort_score");
+        Query query = myRef2.orderByChild("m_sort_score");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -83,23 +83,23 @@ public class MultibattleActivity extends Activity implements View.OnClickListene
                             }
                         }else if (Math.abs(time - nTime) <= 32000 && Math.abs(ido - nIdo) <= 0.001
                                 && Math.abs(keido - nKeido) <= 0.001){
-                            nScore = data.child("sort_score").getValue(Integer.class);
+                            nScore = data.child("m_sort_score").getValue(Integer.class);
                             nScore *= -1;
                             if(count == 1){
                                 score1.setText("" + nScore);
-                                if(nScore == score){
+                                if(nScore == m_score){
                                     resultText.setText("１位！！！");
                                     mybool = false;
                                 }
                             }else if (count == 2){
                                 score2.setText("" + nScore);
-                                if(nScore == score && mybool){
+                                if(nScore == m_score && mybool){
                                     resultText.setText("２位！！！");
                                     mybool = false;
                                 }
                             }else if(count == 3){
                                 score3.setText("" + nScore);
-                                if(nScore == score && mybool){
+                                if(nScore == m_score && mybool){
                                     resultText.setText("３位！！！");
                                     mybool = false;
                                 }
