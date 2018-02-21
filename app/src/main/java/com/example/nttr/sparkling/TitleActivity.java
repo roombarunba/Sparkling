@@ -149,7 +149,8 @@ public class TitleActivity extends Activity implements View.OnClickListener{
                         "※「みんなであそぶ」モードでは\n" +
                         "①　GPSをON\n" + "②　位置情報をWi-Fi、Bluethooth、モバイルネットワークから特定可能\n"
                         + "に設定する必要があります\n\n" +
-                        "※「みんなであそぶ」モード終了後30秒以内に再び「みんなであそぶ」モードを遊ぶと前回の記録が残る場合があります。その場合は昔の自分とも戦ってください。")
+                        "※「みんなであそぶ」モード終了後30秒以内に再び「みんなであそぶ」モードを遊ぶと前回の記録が残る場合があります。その場合は昔の自分とも戦ってください。\n\n"
+                        + "※ゲーム中は、端末を振ってぶつかる範囲に人がいないことを確認し、端末をしっかり握って遊んでください。\nこれを守らずに生じたいかなる損害に対しても責任を負いかねます。")
                 .setPositiveButton("わかった！！！！", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
