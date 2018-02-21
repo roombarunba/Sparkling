@@ -79,8 +79,20 @@ public class RankingActivity extends Activity implements View.OnClickListener{
                 int nScore = 0;
                 String nPlace = "";
                 for(DataSnapshot data: dataSnapshot.getChildren()){
-                    nScore = data.child("score").getValue(Integer.class);
-                    nPlace = data.child("place").getValue(String.class);
+                    try {
+                        nScore = data.child("score").getValue(Integer.class);
+                        nPlace = data.child("place").getValue(String.class);
+                    }catch (NullPointerException e){
+                        Log.d("sparkling","nullpo");
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference("ranking");
+                        try{
+                            String removeS = data.getKey();
+                            myRef.child(removeS).removeValue();
+                        }catch (Exception eee){
+                            Log.d("a", "すでに削除済み？");
+                        }
+                    }
                     if(count == 0){
                         u1.setText(nPlace);
                         s1.setText("" + nScore);
